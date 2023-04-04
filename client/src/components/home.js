@@ -19,7 +19,7 @@ export default function Home() {
 
 
 
-      await axios.get("http://localhost:5002/home").then((res) => { setdata(res.data.post) }).catch((e) => { console.log(e) })
+      await axios.get("https://gallery-app-mtlf.onrender.com/home").then((res) => { setdata(res.data.post) }).catch((e) => { console.log(e) })
 
 
       if (!data) {
@@ -46,7 +46,7 @@ export default function Home() {
     async function data() {
         if (Search.title) {
 
-            await axios.get(`http://localhost:5002/home/${Search.title}`).then((data) => {
+            await axios.get(`https://gallery-app-mtlf.onrender.com/home/${Search.title}`).then((data) => {
                 setdata(data.data.post)
             })
         }
@@ -71,7 +71,7 @@ export default function Home() {
     let id = e.target.value
     console.log(id)
 
-    let res=await axios.delete(`http://localhost:5002/home/${id}`)
+    let res=await axios.delete(`https://gallery-app-mtlf.onrender.com/home/${id}`)
  
 if(res.data.deleted){
   alert("deleted sucessfully...")
