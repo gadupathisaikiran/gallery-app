@@ -35,7 +35,7 @@ async function post(){
             alert("Enter photo url")
         }
 
-        await axios.post("http://localhost:5002/post",data).then((res)=>{if(res.data){window.location.reload()}}).catch((e)=>{console.log(e)})
+        await axios.post("https://gallery-app-mtlf.onrender.com/post",data).then((res)=>{if(res.data){window.location.reload()}}).catch((e)=>{console.log(e)})
     }
 
    catch(e){
@@ -44,15 +44,7 @@ async function post(){
 
    
 
-
-
-   
-
-
 }
-
-
-
 
 
 
