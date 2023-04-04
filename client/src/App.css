@@ -1,0 +1,108 @@
+.container {
+ 
+  display: inline-block;
+width: 1400px;
+ min-height: 1500px;
+}
+.cards-container{
+  height: 100%;
+  width: 100%;
+
+  border: 1px white;
+  /* display: grid;
+  gap: 10px;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 1rem 3rem;
+  grid-template-rows: masonry; */
+
+  display: inline-block;
+  column-count: 3;
+ column-gap: 20px 20px;
+ width: 100%
+ 
+}
+
+.card {
+min-height: 50px;
+border: none !important;
+ 
+/* 
+  width: 25%;
+  height:20%;
+  margin-left: 2%;
+  margin-bottom: 2%; */
+ 
+  position: relative;
+
+  margin: 10px;
+
+  color: rgb(255, 255, 255);
+}
+.header{
+  margin-bottom: 1%;
+}
+.card :hover{
+  transform: scale(1.02);
+ 
+}
+
+
+.add-button{
+  position: absolute;
+right: 10%;
+top: 1%;
+}
+.text{
+  position: absolute;
+visibility: hidden;
+color: rgb(255, 255, 255);
+bottom: 50px;
+ 
+}
+
+.delete-button{
+  position: absolute;
+  width: 90px;
+  height: 30px;
+  top: 30px;
+  right: 45px;
+  color: red;
+  background-color: transparent;
+  cursor: pointer;
+  visibility: hidden;
+  border-radius: 20px;
+   
+  border: 2px solid red;
+}
+
+
+.card:hover .text {
+  visibility: visible;
+
+}
+.card:hover .delete-button {
+  visibility: visible;
+
+}
+#submit-button{
+
+  bottom: 2;
+  right: 20px;
+  position: absolute;
+
+}
+#cancel-button{
+  bottom: 2;
+  right: 120px;
+  position: absolute;
+}
+
+.input{
+  position: absolute;
+  left: 30%;
+  top: 1%;
+  border-radius: 10px;
+  width: 30%;
+  border: 1.5px solid rgb(117, 117, 117);
+  
+}
