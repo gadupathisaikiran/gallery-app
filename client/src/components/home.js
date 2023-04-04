@@ -2,15 +2,20 @@ import React, { useEffect, useState } from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from 'axios';
 import Post from './post';
+import Password from './password';
 
 export default function Home() {
 
 
   const [data, setdata] = useState([])
   const [modalShow, setModalShow] = useState(false);
+  const [show, setshow] = useState(false)
 
   const [Search, setSearch] = useState({ title: "" })
 
+  const [confirm, setconfirm] = useState(false)
+
+  const[id,setid]=useState()
 
   useEffect(() => {
 
@@ -19,12 +24,12 @@ export default function Home() {
 
 
 
-      await axios.get("https://gallery-app-mtlf.onrender.com/home").then((res) => { setdata(res.data.post) }).catch((e) => { console.log(e) })
+      await axios.get("http://localhost:5002/home").then((res) => { setdata(res.data.post) }).catch((e) => { console.log(e) })
 
 
       if (!data) {
         alert("something went wrong")
-       
+
 
       }
 
@@ -44,59 +49,90 @@ export default function Home() {
 
 
     async function data() {
-        if (Search.title) {
+      if (Search.title) {
 
-            await axios.get(`https://gallery-app-mtlf.onrender.com/home/${Search.title}`).then((data) => {
-                setdata(data.data.post)
-            })
-        }
-        else {
+        await axios.get(`http://localhost:5002/home/${Search.title}`).then((data) => {
+          setdata(data.data.post)
+        })
+      }
+      else {
 
-            await axios.get("http://localhost:5002/home").then((data) => {
-                setdata(data.data.post)
-            })
-        }
+        await axios.get("http://localhost:5002/home").then((data) => {
+          setdata(data.data.post)
+        })
+      }
 
     }
     data()
 
-}, [Search])
+  }, [Search])
 
 
 
-  console.log(data)
 
-  async function del(e) {
+  function handleconfirm() {
 
-    let id = e.target.value
-    console.log(id)
+    setconfirm(true)
 
-    let res=await axios.delete(`https://gallery-app-mtlf.onrender.com/home/${id}`)
- 
-if(res.data.deleted){
-  alert("deleted sucessfully...")
-  
-  window.location.reload()
-
-
-}
-
-    
-
-
+    console.log(confirm)
 
   }
 
 
 
 
+  // ............................................delete.........................................
+
+  async function del(e) {
+
+    setid(e.target.value)
+    setshow(true)
+   
+   
+
+  }
+
+
+// ..................................renders when every state changes
+
+useEffect(()=>{
+
+  async function main(){
+
+    if(confirm==true&&show==false) {
+     
+
+
+     let res = await axios.delete(`http://localhost:5002/home/${id}`)
+
+     console.log(res)
+
+     if (res.data.deleted) {
+       // alert("deleted sucessfully...")
+
+       window.location.reload()
+
+
+     }
+
+   }
+  }
+
+  main()
+
+})
 
 
 
 
-  return (
-    <>
-       
+return (
+  <>
+
+
+  
+
+
+
     <div className='header'>
 
       <span class="material-symbols-outlined" id="logo" >
@@ -120,56 +156,58 @@ if(res.data.deleted){
 
 
 
-      </div>
+    </div>
 
-      <div className='cards-container'>
-
-
-
-
-        {
-          data ? data.map((d) => {
-
-
-            return (
-              <div className='card'  >
-
-
-                <img  src={d.url} alt='img' style={{ cursor: "pointer", borderRadius: "30px",position:"relative" }}></img>
-
-                <button className='delete-button' value={d._id} onClick={(e) => { del(e) }}>Delete</button>
-                <h4 className='text' style={{ bottom: "0", left: "16px" }} >{d.label}</h4>
-
-
-              </div>
-            )
+    <div className='cards-container'>
 
 
 
-          })
-            : ""
+
+      {
+        data ? data.map((d) => {
+
+
+          return (
+            <div className='card'  >
+
+
+              <img src={d.url} alt='img' style={{ cursor: "pointer", borderRadius: "30px", position: "relative" }}></img>
+
+              <button className='delete-button' value={d._id} onClick={(e) => { del(e) }}>Delete</button>
+              <h4 className='text' style={{ bottom: "0", left: "16px" }} >{d.label}</h4>
+
+
+            </div>
+          )
 
 
 
-        }
+        })
+          : ""
 
 
+
+      }
 
 
 
 
 
-      </div>
+
+
+    </div>
 
 
 
 
-      <Post show={modalShow} onHide={() => setModalShow(false)} />
+    <Post show={modalShow} onHide={() => setModalShow(false)} />
 
 
+    <Password show={show} onHide={() => { setshow(false) }} handleconfirm={()=>handleconfirm()} />
 
-    </>
+
+  </>
 
 
-  )
+)
 }
