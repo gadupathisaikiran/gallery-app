@@ -1,5 +1,5 @@
 
-start the application by running npm start in  for both server and client side.  alos u can check deployed link- https://gallery-app-kappa.vercel.app/
+start the application by running npm start in  for both server and client side.  alos u can check deployed link- https://gallery-app-kappa.vercel.app/   Refresh the page until u see the photos backend server will take time.
 
   Api server is running in  https://gallery-app-mtlf.onrender.com  or http://localhost:5002/
   
